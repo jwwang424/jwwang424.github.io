@@ -1,1 +1,773 @@
-Hello World
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boximator: Generating Rich and Dynamic Motions for Video Synthesis</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+</head>
+
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+      <div class="columns is-centered">
+      </div>
+      <div class="container has-text-centered">
+        <h1 class="title is-1 publication-title">
+          Boximator:
+        </h1>
+        <h3 class="title is-3 publication-title">
+          Generating Rich and Dynamic Motions for Video Synthesis
+        </h3>
+        <div class="is-size-5 publication-authors">
+          <div class="author-block">Jiawei Wang*, </div>
+          <div class="author-block">Yuchen Zhang*, </div>
+          <div class="author-block">Jiaxin Zou, </div>
+          <div class="author-block">Yan Zeng, </div>
+          <div class="author-block">Guoqiang Wei, </div>
+          <div class="author-block">Liping Yuan, </div>
+          <div class="author-block">Hang Li </div>
+        </div>
+
+        <div class="is-size-5 publication-authors">
+          <span class="author-block">ByteDance Inc.</span>
+          <span class="author-block">&nbsp&nbsp<sup>*</sup>Equal Contribution</span>
+        </div>
+
+        <div class="column has-text-centered">
+          <div class="publication-links">
+            <!-- PDF Link. -->
+            <span class="link-block">
+                <a href="https://hlink.to.paper"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+            </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+        <h2 class="title is-2, columns is-centered">Introducation</h2>
+      <br>
+      <h2 class="subtitle has-text-justified">
+        <b>Boximator</b> is a diffusion-based video generation model. "Boximator" is a synthetic word of "Box" and "Animator", which stands for "<i>use boxes to animate your video</i>". It is capable of:<br>
+        <p style="text-indent:20px"> - Basic: It allows users to input a prompt text and/or a initial frame to generate videos as they need.</p>
+        <p style="text-indent:20px"> - <mark>Advanced</mark>: It encourages users to further specify the positions and movement trajectories of multiple objects in the synthesized video through a convenient and flexible manner.</p><br>
+        <figure style="width: 100%;">
+          <a href="assets/figures/preview.png">
+              <img width="100%" src="assets/figures/preview.png">
+          </a>
+        </figure>
+      </h2>
+    </div>
+  </div>
+</div>
+</section>
+
+<ul>
+  
+</ul>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2, columns is-centered">Examples</h2>
+    <!-- <hr>
+    <center>
+      <h2 class="title is-5"><b style="color:#008AD7; font-weight:normal">&#x25B6 </b> Animals</h2>
+    </center>
+    <hr> -->
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/913-Anime girl playing piano..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/988-A handsome man is taking out a rose from his pocket with his right hand and looking at the rose..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/1492-A cat is jumping to a table..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/2472-Two raccoons in blue shirts are playing a ball, the left one is jumping up..mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"Anime girl playing piano."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A handsome man is taking out a rose from his pocket with his right hand and looking at the rose."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A cat is jumping to a table."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"Two raccoons in blue shirts are playing a ball, the left one is jumping up."</td>
+        </tr>
+      </table>
+    </center>
+
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/3285-An orange kitten is poking its head out of the tea cup..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/3543-Old fishing boat on a blue lake in the woods..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/4439-Very close view of a beautiful girl closing up her eyes..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/5751-A cat is chasing a ball..mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"An orange kitten is poking its head out of the tea cup."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"Old fishing boat on a blue lake in the woods."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"Very close view of a beautiful girl closing up her eyes."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A cat is chasing a ball."</td>
+        </tr>
+      </table>
+    </center>
+
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/8392-An astronaut is skateboarding on the moon..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/12872-A whale falls back to water..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/16515-A man sitting on a table is drinking a cup of coffee..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/18107-Hot air balloons floating in Turkey sky..mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"An astronaut is skateboarding on the moon."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A whale falls back to water."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A man sitting on a table is drinking a cup of coffee."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"Hot air balloons floating in Turkey sky."</td>
+        </tr>
+      </table>
+    </center>
+
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/19932-The flower swings in the wind..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/21706-A bird is jumping left and right on the branch..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/22505-A bird with grey, red and yellow feathers flys away..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/22744-Two animate roles sitting on the moon towards the earth, they are getting closer and closer..mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"The flower swings in the wind."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A bird is jumping left and right on the branch."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A bird with grey, red and yellow feathers flys away."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"Two animate roles sitting on the moon towards the earth, they are getting closer and closer."</td>
+        </tr>
+      </table>
+    </center>
+
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/25742-Adding wine to a glass..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/25765-A young woman is turning her head, revealing her face in profile..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/27972-A whale jumps out of water..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/28421-A dog is chasing a red ball..mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"Adding wine to a glass."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A young woman is turning her head, revealing her face in profile."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A whale jumps out of water."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A dog is chasing a red ball."</td>
+        </tr>
+      </table>
+    </center>
+
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/30823-The adorable pika turns to the camera..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/33132-The gril flys her red balloon away under the sunset..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/34071-The wind blows a woman's umbrella away, rainy day..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/37019-Fat black man fighting a polar bear and run away, anime style.ppp.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"The adorable pika turns to the camera."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"The gril flys her red balloon away under the sunset."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"The wind blows a woman's umbrella away, rainy day."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"Fat black man fighting a polar bear and run away, anime style.ppp"</td>
+        </tr>
+      </table>
+    </center>
+
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/37691-A woman is running on the street with a dog..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/39177-A boy and a girl are kissing..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/43770-A cute fluffy hamster pilot walking towards a fighter aircraft..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/44851-Drone flying over New Zealand beach..mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"A woman is running on the street with a dog."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A boy and a girl are kissing."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A cute fluffy hamster pilot walking towards a fighter aircraft."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"Drone flying over New Zealand beach."</td>
+        </tr>
+      </table>
+    </center>
+
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/45216-A wolf howled at the moon and then jumped down from the stone and ran away..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/45942-The knight rides down to the wild, camera following his back..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/48443-Spiderman swings towards the camera..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/51175-A boy and a girl are kissing..mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"A wolf howled at the moon and then jumped down from the stone and ran away."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"The knight rides down to the wild, camera following his back."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"Spiderman swings towards the camera."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A boy and a girl are kissing."</td>
+        </tr>
+      </table>
+    </center>
+
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/52089-The female warrior switch her sword from left hand to right hand..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/53801-A girl in red is covering her face with a skull..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/54083-Skull in the watercolor style. Butterflies are flying around..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/55244-The kitten is hiding herself into the cup..mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"The female warrior switch her sword from left hand to right hand."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A girl in red is covering her face with a skull."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"Skull in the watercolor style. Butterflies are flying around."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"The kitten is hiding herself into the cup."</td>
+        </tr>
+      </table>
+    </center>
+
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/56298-The knight rides down to the wild..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/56786-A girl is covering her face with hands..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/59085-A man is dancing before the background full of colorful pixels..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/61122-A cute 3D boy is standing and then walking..mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"The knight rides down to the wild."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A girl is covering her face with hands."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A man is dancing before the background full of colorful pixels."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"A cute 3D boy is standing and then walking."</td>
+        </tr>
+      </table>
+    </center>
+
+
+    <table class="center">
+      <tr>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/61998-Two boxers are fighting..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/62010-The female warrior lefts up her sword..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/63577-Drone turning around over New Zealand beach to face the ocean..mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td><video muted autoplay="autoplay" loop="loop" playsinline src="assets/C2V/64516-The character made of pixels is dancing..mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=25% style="text-align:center;">"Two boxers are fighting."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"The female warrior lefts up her sword."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"Drone turning around over New Zealand beach to face the ocean."</td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td width=25% style="text-align:center;">"The character made of pixels is dancing."</td>
+        </tr>
+      </table>
+    </center>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-2, columns is-centered">Comparisons with Other Methods</h2>
+
+      <table class="center">
+        <tr>
+          <td rowspan="2" style="width: 33%; text-align:center; font-size: 1.2em;"><b>MagicVideo-V2</b></td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td rowspan="2" style="width: 33%; text-align:center; font-size: 1.2em;"><b>SVD-XT</b></td>
+          <td style="padding-left: 5px; padding-right: 5px;"></td>
+          <td style="width: 33%; text-align:center; font-size: 1.2em;"><b>Pika 1.0</b></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="width: 33%; text-align:center; font-size: 1.2em;"><b>Gen-2</b></td>
+        </tr>
+      </table>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/Traveler walking alone in the misty forest at sunset.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/Traveler walking alone in the misty forest at sunset.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/Traveler walking alone in the misty forest at sunset.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/Traveler walking alone in the misty forest at sunset.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"Traveler walking alone in the misty forest at sunset."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/LEGO, standing Darth Vader super mario.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/LEGO, standing Darth Vader super mario.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/LEGO, standing Darth Vader super mario.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/LEGO, standing Darth Vader super mario.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"LEGO, standing Darth Vader super mario."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/1910s sitcom of everyday life and routines in society.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/1910s sitcom of everyday life and routines in society.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/1910s sitcom of everyday life and routines in society.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/1910s sitcom of everyday life and routines in society.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"1910s sitcom of everyday life and routines in society."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/Ironman flying over a burning city, very detailed surroundings, cities are blazing, shiny iron man suit, realistic, 4k ultra high defi.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/Ironman flying over a burning city, very detailed surroundings, cities are blazing, shiny iron man suit, realistic, 4k ultra high defi.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/Ironman flying over a burning city, very detailed surroundings, cities are blazing, shiny iron man suit, realistic, 4k ultra high defi.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/Ironman flying over a burning city, very detailed surroundings, cities are blazing, shiny iron man suit, realistic, 4k ultra high defi.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"Ironman flying over a burning city, very detailed surroundings, cities are blazing, shiny iron man suit, realistic, 4k ultra high defi."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/Muppet walking down the street in a red shirt, cinematic, 8k.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/Muppet walking down the street in a red shirt, cinematic, 8k.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/Muppet walking down the street in a red shirt, cinematic, 8k.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/Muppet walking down the street in a red shirt, cinematic, 8k.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"Muppet walking down the street in a red shirt, cinematic, 8k."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/A little boy is riding a bike on a park path, the wheels crunching on the gravel.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/A little boy is riding a bike on a park path, the wheels crunching on the gravel.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/A little boy is riding a bike on a park path, the wheels crunching on the gravel.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/A little boy is riding a bike on a park path, the wheels crunching on the gravel.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"A little boy is riding a bike on a park path, the wheels crunching on the gravel."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/In the swamp, a crocodile stealthily surfaces, revealing only its eyes and the tip of its nose as it moves forward.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/In the swamp, a crocodile stealthily surfaces, revealing only its eyes and the tip of its nose as it moves forward.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/In the swamp, a crocodile stealthily surfaces, revealing only its eyes and the tip of its nose as it moves forward.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/In the swamp, a crocodile stealthily surfaces, revealing only its eyes and the tip of its nose as it moves forward.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"In the swamp, a crocodile stealthily surfaces, revealing only its eyes and the tip of its nose as it moves forward."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/A fox dressed in suit dancing in park.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/A fox dressed in suit dancing in park.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/A fox dressed in suit dancing in park.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/A fox dressed in suit dancing in park.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"A fox dressed in suit dancing in park."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/A fat rabbit wearing a purple robe walking through a fantasy landscape.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/A fat rabbit wearing a purple robe walking through a fantasy landscape.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/A fat rabbit wearing a purple robe walking through a fantasy landscape.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/A fat rabbit wearing a purple robe walking through a fantasy landscape.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"A fat rabbit wearing a purple robe walking through a fantasy landscape."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/A panda standing on a surfboard, in the ocean in sunset,  4k, high resolution.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/A panda standing on a surfboard, in the ocean in sunset,  4k, high resolution.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/A panda standing on a surfboard, in the ocean in sunset,  4k, high resolution.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/A panda standing on a surfboard, in the ocean in sunset,  4k, high resolution.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"A panda standing on a surfboard, in the ocean in sunset,  4k, high resolution."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/Burning chicken running around on fire.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/Burning chicken running around on fire.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/Burning chicken running around on fire.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/Burning chicken running around on fire.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"Burning chicken running around on fire."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+
+    <table class="center">
+      <tr>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/MagicVideo-V2/Flying through an intense battle between pirate ships in a stormy ocean.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td rowspan="2" style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/SVD-XT/Flying through an intense battle between pirate ships in a stormy ocean.mp4"></video></td>
+        <td style="padding-left: 5px; padding-right: 5px;"></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Pika1.0/Flying through an intense battle between pirate ships in a stormy ocean.mp4"></video></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td style="width: 33%"><video muted autoplay="autoplay" loop="loop" playsinline src="assets/Comparisons/Gen-2/Flying through an intense battle between pirate ships in a stormy ocean.mp4"></video></td>
+      </tr>
+    </table>
+    <center>
+      <table class="center">
+        <tr>
+          <td width=100% style="text-align:center;">"Flying through an intense battle between pirate ships in a stormy ocean."</td>
+        </tr>
+      </table>
+    </center>
+    <br>
+</section>
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Generating rich, dynamic and controllable motion is a pivotal challenge in video synthesis. We propose <b>Boximator</b>, a new approach to fine-grained motion control. Boximator introduces two constraint types: <i>hard box</i> and <i>emph{soft box</i>. Users select objects in the conditional frame using hard boxes and then use either type of boxes to roughly or rigorously define the object's position, shape, or motion path in future frames. Boximator functions as a plug-in for existing video diffusion models. Its training process preserves the base model's knowledge by freezing the original weights and training only the control module. To address training challenges, we introduce a novel <i>self-tracking</i> technique that greatly simplifies the learning of box-object correlations. Empirically, Boximator achieves state-of-the-art video quality (FVD) scores, improving on base models, and further enhanced after incorporating box constraints. Its robust motion controllability is validated by drastic increases in the bounding box alignment metric. Human evaluation also shows that users favor Boximator generation results over the base model.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section class="hero teaser">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+        <h2 class="title is-2, columns is-centered">Pipeline</h2>
+      <br>
+      <h2 class="subtitle has-text-justified">
+        <figure style="width: 100%;">
+          <a href="assets/figures/overview.png">
+              <img width="100%" src="assets/figures/overview.png">
+          </a>
+        </figure>
+      </h2>
+    </div>
+  </div>
+  Overview of MagicVideo-V2. The T2I module creates a 1024&times;1024 image that encapsulates the described scene.  Subsequently, the I2V module animates this still image, generating a sequence of 600&times;600&times;32 frames, with the latent noise prior ensuring continuity from the initial frame. The V2V module   enhances these frames to a 1048&times;048 resolution while refining the video content. Finally, the interpolation module extends the sequence to 94 frames, getting a 1048&times;1048 resolution video that exhibits both high aesthetic quality and temporal smoothness.
+</div>
+</section> -->
+
+<!-- <section class="hero teaser">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-2 columns is-centered">Human evaluations</h2>
+          <br>
+          <figure class="image" style="width: 60%; display: block; margin-left: auto; margin-right: auto;">
+            <a href="assets/figures/GSB.png">
+              <img src="assets/figures/GSB.png" alt="GSB Evaluation Results">
+            </a>
+          </figure>
+        </div>
+      </div>
+      Human side-by-side evaluations comparing MagicVideo-V2 with other state-of-the-art text-to-video generation methods, indicating a strong preference for MagicVideo-V2.
+          <figure class="image" style="width: 70%; display: block; margin-left: auto; margin-right: auto;">
+            <a href="assets/figures/Preferences.png">
+              <img src="assets/figures/Preferences.png" alt="Preferences Results">
+            </a>
+          </figure>
+      The distribution of human evaluators' perferences, showing a dominant inclination towards MagicVideo-V2 over other state-of-the-art T2V methods. Green, gray, and pink bars represent trials where MagicVideo-V2 was judged better, equivalent, or inferior, respectively.
+    </div>
+  </div>
+</section> -->
+
+<section class="section" id="BibTeX">
+  <div class="container content is-max-desktop">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{boximator,
+      title={Boximator: Generating Rich and Dynamic Motions for Video Synthesis},
+      author={Wang, Jiawei and Zhang, Yuchen and Zou, Jiaxin and Zeng, Yan and Wei, Guoqiang and Yuan, Liping and Li, Hang},
+      year={2024},
+      eprint={xxxx.xxxx},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://arxiv.org/pdf/2401.04468.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <div class="content">
+          <p>
+             The source code of this webpage is based on the <a href="https://github.com/magicvideov2/magicvideov2.github.io"> MagicVideo-V2</a> project webpage.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="text/javascript" src="./static/slick/slick.min.js"></script>
+</body>
+</html>
